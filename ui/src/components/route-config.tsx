@@ -16,7 +16,6 @@ import {
   EditRouteDialog,
   EditTcpRouteDialog,
 } from "@/components/route/route-components";
-import { useXdsMode } from "@/hooks/use-xds-mode";
 
 export function RouteConfig() {
   const {
@@ -56,7 +55,7 @@ export function RouteConfig() {
 
   const { isSubmitting, addRoute, editRoute, editTcpRoute, deleteRoute, deleteTcpRoute } =
     useRouteOperations();
-  const xds = useXdsMode();
+  const xds = false;
 
   // Load routes on component mount
   useEffect(() => {

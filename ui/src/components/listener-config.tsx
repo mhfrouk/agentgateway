@@ -55,7 +55,6 @@ import { useServer } from "@/lib/server-context";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useXdsMode } from "@/hooks/use-xds-mode";
 
 interface ListenerConfigProps {
   isAddingListener?: boolean;
@@ -127,7 +126,6 @@ export function ListenerConfig({
   setIsAddingListener = () => {},
 }: ListenerConfigProps) {
   const { refreshListeners } = useServer();
-  const xds = useXdsMode();
   const [binds, setBinds] = useState<BindWithBackendsAndRoutes[]>([]);
   const [expandedBinds, setExpandedBinds] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
@@ -391,8 +389,8 @@ export function ListenerConfig({
         <Button
           onClick={() => setIsAddingBind(true)}
           variant="outline"
-          disabled={xds}
-          className={xds ? "opacity-50 cursor-not-allowed" : undefined}
+
+
         >
           <Plus className="mr-2 h-4 w-4" />
           Add Bind
@@ -447,8 +445,8 @@ export function ListenerConfig({
                               bindPort: bind.port,
                             });
                           }}
-                          disabled={xds}
-                          className={`text-destructive hover:text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
+               
+                          className="text-destructive hover:text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -466,8 +464,9 @@ export function ListenerConfig({
                       <Button
                         size="sm"
                         onClick={() => handleAddListenerToBind(bind.port)}
-                        disabled={xds}
-                        className={`h-8 ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
+             
+                         className="h-8"
+
                       >
                         <Plus className="mr-2 h-3 w-3" />
                         Add Listener
@@ -574,8 +573,9 @@ export function ListenerConfig({
                                         </DropdownMenuItem>
                                         {hasTLS(listener) && (
                                           <DropdownMenuItem
-                                            className={`text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-                                            disabled={xds}
+                                             className="text-destructive"
+
+                                 
                                             onClick={() => {
                                               setDeleteConfigDialog({
                                                 isOpen: true,
@@ -616,8 +616,8 @@ export function ListenerConfig({
                                         listenerIndex,
                                       })
                                     }
-                                    disabled={xds}
-                                    className={`text-destructive hover:text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
+                         
+                                    className="text-destructive hover:text-destructive"
                                   >
                                     <Trash2 className="h-4 w-4" />
                                   </Button>
@@ -669,7 +669,8 @@ export function ListenerConfig({
             >
               Cancel
             </Button>
-            <Button onClick={handleAddBind} disabled={isSubmitting || xds}>
+                         <Button onClick={handleAddBind} disabled={isSubmitting}
+>
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Add Bind
             </Button>
@@ -781,7 +782,8 @@ export function ListenerConfig({
             </Button>
             <Button
               onClick={handleAddListener}
-              disabled={isSubmitting || !newListener.targetBindPort || xds}
+               disabled={isSubmitting || !newListener.targetBindPort}
+
             >
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Add Listener
@@ -884,8 +886,9 @@ export function ListenerConfig({
                   handleDeleteListener(deleteDialog.listenerName);
                 }
               }}
-              disabled={isSubmitting || xds}
-              className={xds ? "opacity-50 cursor-not-allowed" : undefined}
+               disabled={isSubmitting}
+
+   
             >
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Delete

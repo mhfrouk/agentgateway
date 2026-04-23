@@ -68,7 +68,7 @@ import {
   getBackendPolicyTypes,
   canDeleteBackend,
 } from "@/lib/backend-utils";
-import { useXdsMode } from "@/hooks/use-xds-mode";
+
 
 const getEnvAsRecord = (env: unknown): Record<string, string> => {
   return typeof env === "object" && env !== null ? (env as Record<string, string>) : {};
@@ -109,7 +109,7 @@ export const BackendTable: React.FC<BackendTableProps> = ({
   onDeleteBackend,
   isSubmitting,
 }) => {
-  const xds = useXdsMode();
+
   return (
     <div className="space-y-4">
       {Array.from(backendsByBind.entries()).map(([port, backendContexts]) => {
@@ -246,8 +246,8 @@ export const BackendTable: React.FC<BackendTableProps> = ({
                                   variant="ghost"
                                   size="icon"
                                   onClick={() => onEditBackend(backendContext)}
-                                  disabled={xds}
-                                  className={xds ? "opacity-50 cursor-not-allowed" : undefined}
+
+
                                 >
                                   <Edit className="h-4 w-4" />
                                 </Button>
@@ -297,8 +297,8 @@ export const BackendTable: React.FC<BackendTableProps> = ({
                                       variant="ghost"
                                       size="icon"
                                       onClick={() => onDeleteBackend(backendContext)}
-                                      className={`text-destructive hover:text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-                                      disabled={isSubmitting || xds}
+                                      className="text-destructive hover:text-destructive"
+                                      disabled={isSubmitting}
                                     >
                                       <Trash2 className="h-4 w-4" />
                                     </Button>

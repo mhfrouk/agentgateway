@@ -58,7 +58,7 @@ import {
 } from "@/components/policy/form-renderers";
 import { POLICY_TYPES, PolicyType } from "@/lib/policy-constants";
 import { getDefaultPolicyData } from "@/lib/policy-defaults";
-import { useXdsMode } from "@/hooks/use-xds-mode";
+
 
 interface RouteWithContext {
   route: RouteType | TcpRoute;
@@ -84,7 +84,6 @@ export function PolicyConfig() {
   const [selectedRoute, setSelectedRoute] = useState<RouteWithContext | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const xds = useXdsMode();
 
   const [policyDialog, setPolicyDialog] = useState<PolicyDialogState>({
     isOpen: false,
@@ -487,8 +486,8 @@ export function PolicyConfig() {
                             handleAddPolicy(selectedRoute, type as PolicyType);
                           }
                         }}
-                        className={`flex-1 ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-                        disabled={xds}
+                        className={`flex-1 `}
+
                       >
                         {hasPolicy ? (
                           <>
@@ -507,8 +506,8 @@ export function PolicyConfig() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleDeletePolicy(selectedRoute, type as PolicyType)}
-                          className={`text-destructive hover:text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-                          disabled={isSubmitting || xds}
+                          className={`text-destructive hover:text-destructive `}
+                          
                         >
                           <Trash2 className="h-3 w-3" />
                         </Button>
@@ -586,8 +585,8 @@ export function PolicyConfig() {
             </Button>
             <Button
               onClick={handleSavePolicy}
-              disabled={isSubmitting || xds}
-              className={xds ? "opacity-50 cursor-not-allowed" : undefined}
+              
+
             >
               {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save Policy

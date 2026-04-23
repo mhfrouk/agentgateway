@@ -125,9 +125,7 @@ function cleanupConfig(config: LocalConfig): LocalConfig {
  * Updates the configuration
  */
 export async function updateConfig(config: LocalConfig): Promise<void> {
-  if (currentXdsMode) {
-    throw new Error("Configuration is managed by XDS and cannot be updated via the UI.");
-  }
+  // Allow configuration updates regardless of XDS mode; UI now manages config directly.
   try {
     // Clean up the config before sending
     const cleanedConfig = cleanupConfig(config);

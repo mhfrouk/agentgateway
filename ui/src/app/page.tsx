@@ -29,13 +29,11 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { LoadingState } from "@/components/loading-state";
-import { useXdsMode } from "@/hooks/use-xds-mode";
 
 export default function Home() {
   const { isLoading, setIsLoading } = useLoading();
   const { setConfig, isConnected, connectionError, binds } = useServer();
   const { showWizard, handleWizardComplete, handleWizardSkip, restartWizard } = useWizard();
-  const xds = useXdsMode();
 
   const [configUpdateMessage] = useState<{
     success: boolean;
@@ -221,20 +219,14 @@ export default function Home() {
               Get started by configuring your first port bind and listener to begin routing traffic.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              {xds ? (
-                <Button disabled className="opacity-50 cursor-not-allowed">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create First Listener
-                </Button>
-              ) : (
                 <Button asChild>
                   <Link href="/listeners">
                     <Plus className="h-4 w-4 mr-2" />
                     Create First Listener
                   </Link>
                 </Button>
-              )}
-              <Button variant="outline" onClick={handleRestartWizard} disabled={xds}>
+
+               <Button variant="outline" onClick={handleRestartWizard}>
                 <Settings className="h-4 w-4 mr-2" />
                 Run Setup Wizard
               </Button>
@@ -416,57 +408,24 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {xds ? (
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start opacity-50 cursor-not-allowed"
-                    disabled
-                  >
+                                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/listeners">
                     <Plus className="h-4 w-4 mr-2" />
                     Add Listener
-                  </Button>
-                ) : (
-                  <Button asChild variant="outline" className="w-full justify-start">
-                    <Link href="/listeners">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Listener
-                    </Link>
-                  </Button>
-                )}
-                {xds ? (
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start opacity-50 cursor-not-allowed"
-                    disabled
-                  >
+                  </Link>
+                </Button>
+                                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/routes">
                     <Route className="h-4 w-4 mr-2" />
                     Create Route
-                  </Button>
-                ) : (
-                  <Button asChild variant="outline" className="w-full justify-start">
-                    <Link href="/routes">
-                      <Route className="h-4 w-4 mr-2" />
-                      Create Route
-                    </Link>
-                  </Button>
-                )}
-                {xds ? (
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start opacity-50 cursor-not-allowed"
-                    disabled
-                  >
+                  </Link>
+                </Button>
+                                <Button asChild variant="outline" className="w-full justify-start">
+                  <Link href="/policies">
                     <Shield className="h-4 w-4 mr-2" />
                     Configure Policy
-                  </Button>
-                ) : (
-                  <Button asChild variant="outline" className="w-full justify-start">
-                    <Link href="/policies">
-                      <Shield className="h-4 w-4 mr-2" />
-                      Configure Policy
-                    </Link>
-                  </Button>
-                )}
+                  </Link>
+                </Button>
                 <Button asChild variant="outline" className="w-full justify-start">
                   <Link href="/playground">
                     <Code className="h-4 w-4 mr-2" />
