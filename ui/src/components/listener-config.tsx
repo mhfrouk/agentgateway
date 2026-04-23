@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useXdsMode } from "@/hooks/use-xds-mode";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -55,7 +56,6 @@ import { useServer } from "@/lib/server-context";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useXdsMode } from "@/hooks/use-xds-mode";
 
 interface ListenerConfigProps {
   isAddingListener?: boolean;
@@ -127,7 +127,7 @@ export function ListenerConfig({
   setIsAddingListener = () => {},
 }: ListenerConfigProps) {
   const { refreshListeners } = useServer();
-  const xds = useXdsMode();
+  const xds = false;
   const [binds, setBinds] = useState<BindWithBackendsAndRoutes[]>([]);
   const [expandedBinds, setExpandedBinds] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);

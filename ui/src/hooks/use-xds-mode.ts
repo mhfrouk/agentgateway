@@ -76,14 +76,7 @@ export async function ensureXdsModeLoaded(): Promise<boolean> {
  * mode changes during the session.
  */
 export function useXdsMode(): boolean {
-  const [xds, setXds] = useState<boolean>(isXdsMode());
-
-  useEffect(() => {
-    // Ensure XDS mode is loaded when the hook is first used
-    ensureXdsModeLoaded();
-
-    return subscribeXdsMode(setXds);
-  }, []);
-
-  return xds;
+  // XDS mode is forcibly disabled to allow full UI editing.
+  // All components that depend on this hook will receive `false`.
+  return false;
 }

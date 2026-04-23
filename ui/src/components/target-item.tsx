@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Edit2, Trash2 } from "lucide-react";
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useXdsMode } from "@/hooks/use-xds-mode";
 
 interface TargetItemProps {
   target: TargetWithType;
@@ -40,7 +39,6 @@ export default function TargetItem({
   isUpdating,
 }: TargetItemProps) {
   const targetType = getTargetType(target as TargetWithType);
-  const xds = useXdsMode();
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -94,8 +92,8 @@ export default function TargetItem({
           variant="ghost"
           size="icon"
           onClick={() => onDelete(index)}
-          className={`h-8 w-8 ml-2 text-muted-foreground hover:bg-primary/20 flex-shrink-0 ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-          disabled={isUpdating || xds}
+          className={`h-8 w-8 ml-2 text-muted-foreground hover:bg-primary/20 flex-shrink-0`}
+          disabled={isUpdating}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
@@ -104,8 +102,8 @@ export default function TargetItem({
           variant="ghost"
           size="icon"
           onClick={() => onEdit(target)}
-          className={`h-8 w-8 ml-2 text-muted-foreground hover:bg-primary/20 flex-shrink-0 ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
-          disabled={isUpdating || xds}
+          className={`h-8 w-8 ml-2 text-muted-foreground hover:bg-primary/20 flex-shrink-0`}
+          disabled={isUpdating}
         >
           <Edit2 className="h-4 w-4" />
         </Button>

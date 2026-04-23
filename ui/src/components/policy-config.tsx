@@ -487,7 +487,7 @@ export function PolicyConfig() {
                             handleAddPolicy(selectedRoute, type as PolicyType);
                           }
                         }}
-                        className={`flex-1 ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
+                        className={`flex-1 `}
                         disabled={xds}
                       >
                         {hasPolicy ? (
@@ -507,7 +507,7 @@ export function PolicyConfig() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleDeletePolicy(selectedRoute, type as PolicyType)}
-                          className={`text-destructive hover:text-destructive ${xds ? "opacity-50 cursor-not-allowed" : ""}`}
+                          className={`text-destructive hover:text-destructive `}
                           disabled={isSubmitting || xds}
                         >
                           <Trash2 className="h-3 w-3" />
